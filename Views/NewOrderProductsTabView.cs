@@ -1,8 +1,8 @@
-﻿using VSP__559ir_MyProject.Data;
-using VSP__559ir_MyProject.Models;
-using VSP__559ir_MyProject.Views.Controls;
+using SDA_559ir.Data;
+using SDA_559ir.Models;
+using SDA_559ir.Views.Controls;
 
-namespace VSP__559ir_MyProject.Views
+namespace SDA_559ir.Views
 {
     public partial class NewOrderProductsTabView : UserControl
     {

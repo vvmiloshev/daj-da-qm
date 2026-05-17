@@ -1,6 +1,6 @@
-﻿using VSP__559ir_MyProject.Models;
+using SDA_559ir.Models;
 
-namespace VSP__559ir_MyProject.Views.Controls
+namespace SDA_559ir.Views.Controls
 {
     public partial class MenuItemCardView : UserControl
     {

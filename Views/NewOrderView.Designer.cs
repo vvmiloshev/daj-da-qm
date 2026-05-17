@@ -1,4 +1,4 @@
-﻿namespace VSP__559ir_MyProject.Views
+namespace SDA_559ir.Views
 {
     partial class NewOrderView
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
-using VSP__559ir_MyProject.Models;
+using SDA_559ir.Models;
 
-namespace VSP__559ir_MyProject.Data
+namespace SDA_559ir.Data
 {
     internal sealed class OrderRepository
     {
@@ -321,6 +321,67 @@ ORDER BY o.id DESC;
             }
 
             return list;
+        }
+
+        public List<OrderListRow> GetOrdersByStatus(OrderStatus status)
+        {
+            using var conn = Db.OpenConnection();
+            using var cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"
+SELECT
+  o.id AS order_id,
+  o.customer_name,
+  o.customer_phone,
+  o.delivery_address,
+  COALESCE(c.name, '') AS courier_name,
+  COALESCE(o.created_at, '') AS created_at,
+  COALESCE(o.deliver_at, '') AS deliver_at,
+  o.status AS status,
+  COALESCE(SUM(oi.qty * oi.unit_price_eur), 0) AS total_eur
+FROM orders o
+LEFT JOIN couriers c ON c.id = o.courier_id
+LEFT JOIN order_items oi ON oi.order_id = o.id
+WHERE o.status = @status
+GROUP BY o.id, o.customer_name, o.customer_phone, o.delivery_address, courier_name, created_at, deliver_at, o.status
+ORDER BY datetime(o.created_at) ASC, o.id ASC;
+";
+            cmd.Parameters.AddWithValue("@status", (int)status);
+
+            var list = new List<OrderListRow>();
+            using var r = cmd.ExecuteReader();
+            while (r.Read())
+            {
+                list.Add(new OrderListRow
+                {
+                    OrderId = r.GetInt64(r.GetOrdinal("order_id")),
+                    CustomerName = r.GetString(r.GetOrdinal("customer_name")),
+                    CustomerPhone = r.GetString(r.GetOrdinal("customer_phone")),
+                    DeliveryAddress = r.GetString(r.GetOrdinal("delivery_address")),
+                    CourierName = r.GetString(r.GetOrdinal("courier_name")),
+                    CreatedAt = r.GetString(r.GetOrdinal("created_at")),
+                    DeliverAt = r.GetString(r.GetOrdinal("deliver_at")),
+                    Status = r.GetInt32(r.GetOrdinal("status")),
+                    TotalEur = Convert.ToDecimal(r.GetDouble(r.GetOrdinal("total_eur")))
+                });
+            }
+
+            return list;
+        }
+
+        public void UpdateOrderStatus(long orderId, OrderStatus status)
+        {
+            using var conn = Db.OpenConnection();
+            using var cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"
+UPDATE orders
+SET status = @status
+WHERE id = @id;
+";
+            cmd.Parameters.AddWithValue("@id", orderId);
+            cmd.Parameters.AddWithValue("@status", (int)status);
+            cmd.ExecuteNonQuery();
         }
     }
 

@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 
-namespace VSP__559ir_MyProject.Views.Controls
+namespace SDA_559ir.Views.Controls
 {
     public partial class QuantityPicker : UserControl
     {

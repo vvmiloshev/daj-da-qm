@@ -1,7 +1,7 @@
-﻿using System.Windows.Forms.VisualStyles;
-using VSP__559ir_MyProject.Data;
+using System.Windows.Forms.VisualStyles;
+using SDA_559ir.Data;
 
-namespace VSP__559ir_MyProject.Views
+namespace SDA_559ir.Views
 {
     public partial class MenuView : UserControl
     {

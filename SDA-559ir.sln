@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36623.8 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSP_ 559ir_MyProject", "VSP_ 559ir_MyProject.csproj", "{9051D982-F2C9-41B2-9907-1A6C4F7BF6E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDA-559ir", "SDA-559ir.csproj", "{9051D982-F2C9-41B2-9907-1A6C4F7BF6E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

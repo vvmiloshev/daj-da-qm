@@ -1,7 +1,7 @@
-﻿using System.Drawing.Drawing2D;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace VSP__559ir_MyProject.Views
+namespace SDA_559ir.Views
 {
     public partial class HomeView : UserControl
     {

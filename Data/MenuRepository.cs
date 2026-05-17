@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
-using VSP__559ir_MyProject.Models;
+using SDA_559ir.Models;
 
-namespace VSP__559ir_MyProject.Data
+namespace SDA_559ir.Data
 {
     internal sealed class MenuRepository
     {

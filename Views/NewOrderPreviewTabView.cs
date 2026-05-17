@@ -1,7 +1,7 @@
-﻿using System.Text;
-using VSP__559ir_MyProject.Data;
+using System.Text;
+using SDA_559ir.Data;
 
-namespace VSP__559ir_MyProject.Views
+namespace SDA_559ir.Views
 {
     /// <summary>
     /// Tab view that renders a printable preview of a saved order.

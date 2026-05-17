@@ -1,4 +1,4 @@
-﻿namespace VSP__559ir_MyProject.Views.Controls
+namespace SDA_559ir.Views.Controls
 {
     partial class MenuItemCardView
     {
@@ -10,7 +10,7 @@
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label lblDesc;
         private System.Windows.Forms.FlowLayoutPanel actionsPanel;
-        private VSP__559ir_MyProject.Views.Controls.QuantityPicker qty;
+        private SDA_559ir.Views.Controls.QuantityPicker qty;
         private System.Windows.Forms.Button btnDelete;
 
         protected override void Dispose(bool disposing)
@@ -29,7 +29,7 @@
             this.lblName = new System.Windows.Forms.Label();
             this.lblDesc = new System.Windows.Forms.Label();
             this.actionsPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.qty = new VSP__559ir_MyProject.Views.Controls.QuantityPicker();
+            this.qty = new SDA_559ir.Views.Controls.QuantityPicker();
             this.btnDelete = new System.Windows.Forms.Button();
             this.cardPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).BeginInit();

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
-using VSP__559ir_MyProject.Data;
+using SDA_559ir.Data;
 
-namespace VSP__559ir_MyProject
+namespace SDA_559ir
 {
     public partial class InitialScreen : Form
     {
@@ -47,13 +47,13 @@ namespace VSP__559ir_MyProject
 
         private void OpenOrders()
         {
-            var view = new VSP__559ir_MyProject.Views.OrdersView();
+            var view = new SDA_559ir.Views.OrdersView();
 
             view.BackRequested += (_, __) => ShowHome();
 
             view.EditRequested += (_, orderId) =>
             {
-                var edit = new VSP__559ir_MyProject.Views.NewOrderView(orderId);
+                var edit = new SDA_559ir.Views.NewOrderView(orderId);
                 edit.BackRequested += (_, __) => OpenOrders();
                 ShowView(edit);
             };

@@ -1,4 +1,4 @@
-﻿namespace VSP__559ir_MyProject.Models
+namespace SDA_559ir.Models
 {
     public class Courier
     {

@@ -1,8 +1,8 @@
-﻿using System.Windows.Forms.VisualStyles;
-using VSP__559ir_MyProject.Data;
-using VSP__559ir_MyProject.Models;
+using System.Windows.Forms.VisualStyles;
+using SDA_559ir.Data;
+using SDA_559ir.Models;
 
-namespace VSP__559ir_MyProject.Views
+namespace SDA_559ir.Views
 {
     public partial class OrdersView : UserControl
     {
@@ -11,12 +11,16 @@ namespace VSP__559ir_MyProject.Views
 
         private readonly OrderRepository _orderRepo = new OrderRepository();
         private readonly CourierRepository _courierRepo = new CourierRepository();
+        private readonly OrderProcessingQueue _processingQueue = new OrderProcessingQueue();
 
         private readonly System.Windows.Forms.Timer _searchTimer = new System.Windows.Forms.Timer();
+        private readonly Label _lblQueueSummary = new Label();
+        private readonly Button _btnProcessNext = new Button();
 
         public OrdersView()
         {
             InitializeComponent();
+            InitializeQueueControls();
             InitializeGrid();
 
             btnBack.Click += (_, __) => BackRequested?.Invoke(this, EventArgs.Empty);
@@ -62,6 +66,26 @@ namespace VSP__559ir_MyProject.Views
             cmbCourier.ValueMember = "Id";
             cmbCourier.DataSource = ds;
             cmbCourier.SelectedIndex = 0;
+        }
+
+        private void InitializeQueueControls()
+        {
+            topPanel.Height = 128;
+
+            _lblQueueSummary.AutoSize = false;
+            _lblQueueSummary.Location = new Point(120, 88);
+            _lblQueueSummary.Size = new Size(520, 28);
+            _lblQueueSummary.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            _lblQueueSummary.Text = "Queue: loading...";
+
+            _btnProcessNext.Location = new Point(650, 87);
+            _btnProcessNext.Size = new Size(180, 30);
+            _btnProcessNext.Text = "Process next order";
+            _btnProcessNext.UseVisualStyleBackColor = true;
+            _btnProcessNext.Click += (_, __) => ProcessNextOrder();
+
+            topPanel.Controls.Add(_lblQueueSummary);
+            topPanel.Controls.Add(_btnProcessNext);
         }
 
         private void InitializeGrid()
@@ -139,6 +163,47 @@ namespace VSP__559ir_MyProject.Views
                     "" // actions column is painted manually
                 );
             }
+
+            RefreshQueueSummary();
+        }
+
+        private void RefreshQueueSummary()
+        {
+            var newOrders = _orderRepo.GetOrdersByStatus(OrderStatus.New);
+            _processingQueue.Rebuild(newOrders);
+
+            var next = _processingQueue.PeekOrDefault();
+            if (next == null)
+            {
+                _lblQueueSummary.Text = "Queue: no waiting orders.";
+                _btnProcessNext.Enabled = false;
+                return;
+            }
+
+            _lblQueueSummary.Text =
+                $"Queue: {_processingQueue.Count} waiting | Next: #{next.OrderId} - {next.CustomerName}";
+            _btnProcessNext.Enabled = true;
+        }
+
+        private void ProcessNextOrder()
+        {
+            var next = _processingQueue.DequeueOrDefault();
+            if (next == null)
+            {
+                RefreshQueueSummary();
+                return;
+            }
+
+            _orderRepo.UpdateOrderStatus(next.OrderId, OrderStatus.OnTheWay);
+
+            MessageBox.Show(
+                $"Order #{next.OrderId} is now marked as 'On the way'.",
+                "Queue",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
+
+            RefreshGrid();
         }
 
         private int? GetSelectedCourierIdOrNull()

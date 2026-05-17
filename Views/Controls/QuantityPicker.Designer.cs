@@ -1,4 +1,4 @@
-﻿namespace VSP__559ir_MyProject.Views.Controls
+namespace SDA_559ir.Views.Controls
 {
     partial class QuantityPicker
     {

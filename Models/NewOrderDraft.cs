@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace VSP__559ir_MyProject.Models
+namespace SDA_559ir.Models
 {
     public sealed class NewOrderDraft
     {

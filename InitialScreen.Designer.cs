@@ -2,7 +2,7 @@
 using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace VSP__559ir_MyProject
+namespace SDA_559ir
 {
     partial class InitialScreen
     {

@@ -1,4 +1,4 @@
-namespace VSP__559ir_MyProject
+namespace SDA_559ir
 {
     internal static class Program
     {

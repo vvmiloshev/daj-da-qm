@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 
-namespace VSP__559ir_MyProject.Data
+namespace SDA_559ir.Data
 {
     internal static class Db
     {
